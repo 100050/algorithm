@@ -8,7 +8,7 @@ void swap(int* a, int* b) {
 }
 
 // 버블정렬
-void bubbleSort(int n, int* arr) {
+void bubbleSort(int arr[], int n) {
 	int i, j;
 	for (i = 0; i < n-1; i++) {
 		for (j = 0; j < n-1; j++) {
@@ -19,7 +19,7 @@ void bubbleSort(int n, int* arr) {
 }
 
 // 선택정렬
-void selectionSort(int n, int* arr) {
+void selectionSort(int arr[], int n) {
 	int i, j, min;
 	for (i = 0; i < n; i++) {
 		min = i;
@@ -32,7 +32,7 @@ void selectionSort(int n, int* arr) {
 }
 
 // 삽입정렬
-void insertionSort(int n, int* arr) {
+void insertionSort(int arr[], int n) {
 	int i, j, key;
 	for (i = 1; i < n; i++) {
 		key = arr[i];
@@ -49,19 +49,43 @@ void insertionSort(int n, int* arr) {
 }
 
 // 병합정렬
-void mergeSort(int n, int* arr) {
+void mergeSort(int arr[], int n) {
 
 }
 
 // 퀵정렬
-void quickSort(int n, int* arr) {
+void quickSort(int arr[], int L, int R) {
+	int pivot;
+	int left, right;
+	left = L;
+	right = R;
+	pivot = arr[(L + R) / 2];
 
+	do {
+		while (arr[left] < pivot)
+			left++;
+		while (arr[right] > pivot)
+			right--;
+
+		if (left <= right) {
+			swap(&arr[right], &arr[left]);
+			right--;
+			left++;
+		}
+
+	} while (left <= right);
+
+	if (L < right)
+		quickSort(arr, L, right);
+
+	if (left < R)
+		quickSort(arr, left, R);
 }
 
-int main_() {
+int main() {
 	int i;
-	int arr[10] = { 10,5,2,3,5,7,102,23,1,5 };
-	bubbleSort(10, arr);
+	int arr[10] = { 10,9,8,7,6,5,4,3,2,1};
+	quickSort(arr, 0, 9);
 	for (i = 0; i < 10; i++)
 		printf("%d ", arr[i]);
 	return 0;

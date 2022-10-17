@@ -49,8 +49,41 @@ void insertionSort(int arr[], int n) {
 }
 
 // 병합정렬
-void mergeSort(int arr[], int n) {
+int arr2[10];
+void merge(int arr[], int left, int mid, int right) {
+	int i, j, k, l;
+	i = left;
+	j = mid+1;
+	k = left;
+	while (i <= mid && j <= right) {
+		if (arr[i] <= arr[j])
+			arr2[k++] = arr[i++];
+		else
+			arr2[k++] = arr[j++];
+	}
 
+	if (i > mid) {
+		for (l = j; l <= right; l++)
+			arr2[k++] = arr[l];
+	}
+	else {
+		for (l = i; l <= mid; l++)
+			arr2[k++] = arr[l];
+	}
+
+	for (i = left; i <= right; i++) {
+		arr[i] = arr2[i];
+	}
+}
+
+void mergeSort(int arr[], int left, int right) {
+	int mid;
+	if (left<right) {
+		mid = (right + left) / 2;
+		mergeSort(arr, left, mid);
+		mergeSort(arr, mid+1, right);
+		merge(arr, left, mid, right);
+	}
 }
 
 // 퀵정렬
@@ -82,10 +115,20 @@ void quickSort(int arr[], int L, int R) {
 		quickSort(arr, left, R);
 }
 
+// 힙정렬
+void heepSort() {
+
+}
+
+// 기수정렬
+void radixSort() {
+
+}
+
 int main() {
 	int i;
 	int arr[10] = { 10,9,8,7,6,5,4,3,2,1};
-	quickSort(arr, 0, 9);
+	mergeSort(arr, 0, 9);
 	for (i = 0; i < 10; i++)
 		printf("%d ", arr[i]);
 	return 0;
